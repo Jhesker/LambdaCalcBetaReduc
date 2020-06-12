@@ -29,9 +29,18 @@ public class LambdaCalcApp {
                     + "you would like submit for Beta Reduce.");
             
             if(term != null){
+                
                 expr = parser.parse(term);
                 expr = sim.betaReduce(expr);
                 
+                //display output beta reduction
+                again = JOptionPane.showConfirmDialog(null,
+                        expr +
+                        "\nWould you like to run Another?",
+                        "Beta Reduction:",
+                        JOptionPane.YES_NO_OPTION);
+                if(again == JOptionPane.YES_OPTION);  //evaluate choice
+                else run = false;
                 
             }else{
                 //error or close value encountered. Ask to continue 
@@ -40,7 +49,8 @@ public class LambdaCalcApp {
                         JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 
                 if(again == JOptionPane.YES_OPTION); //evaluate choice
-                else System.exit(0);
+                else run = false; 
+                
             }
         }while(run);
     }
