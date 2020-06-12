@@ -29,7 +29,7 @@ public class LambdaCalcApp {
                     + "you would like submit for Beta Reduce.");
             
             if(term != null){
-                expr = parser.parseTerm(term);
+                expr = parser.parse(term);
                 expr = sim.betaReduce(expr);
                 
                 
