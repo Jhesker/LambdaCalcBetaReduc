@@ -1,0 +1,10 @@
+(Lx. x)y (solution = y)
+(Lx. z)y (solution = z)
+(Lx. x z x)y (solution = y z y)
+(Lx. x)(Ly. y) (solution = Ly. y)
+(Lx. x x)(Lx. x x) (solution = (Lx. x x)(Lx. x x) or "Expression is divergent")
+
+(Lx. x)y (solution = y)
+(Lx. x)(y) (solution = y)
+(Lx. z)y (solution = z)
+(Lx. x)(Ly. y)z (solution = z)

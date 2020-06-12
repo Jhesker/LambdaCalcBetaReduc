@@ -15,4 +15,5 @@ public interface LambdaExpr {
     public LambdaExpr substitute(Variable var, LambdaExpr value);
     public ExprKind type();
     
+    
 }
