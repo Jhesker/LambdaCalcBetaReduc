@@ -1,7 +1,7 @@
-
 package lambdacalcapp;
 
 import javax.swing.JOptionPane;
+import lambdaexpr.LambdaExpr;
 import parser.Parser;
 import simulator.Simulator;
 /**
@@ -18,7 +18,8 @@ public class LambdaCalcApp {
         //instantiating Main Objects
         Parser parser = new Parser();
         Simulator sim = new Simulator();
-   
+        
+        LambdaExpr expr; //Lambda value to be run through parser
         boolean run = true;   //exit loop value
         String term;  //Lambda expression entered by the user
         int again;   // JOptionPane run again value on error
@@ -29,9 +30,8 @@ public class LambdaCalcApp {
                     + "you would like submit for Beta Reduce.");
             
             if(term != null){
-                
-                
-                
+                expr = parser.parseTerm(term);
+                expr = sim.betaReduce(expr);
                 
                 
             }else{
