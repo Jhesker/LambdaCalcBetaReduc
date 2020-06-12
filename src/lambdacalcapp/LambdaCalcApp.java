@@ -5,7 +5,6 @@ import lambdaexpr.LambdaExpr;
 import parser.Parser;
 import simulator.Simulator;
 /**
- *
  * @author jhesker
  */
 public class LambdaCalcApp {

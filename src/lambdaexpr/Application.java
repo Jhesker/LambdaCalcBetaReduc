@@ -1,8 +1,6 @@
 package lambdaexpr;
-import lambdaexpr.*;
 
 /**
- *
  * @author jhesker
  */
 public class Application implements LambdaExpr{

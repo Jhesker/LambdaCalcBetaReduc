@@ -1,7 +1,6 @@
 package lambdaexpr;
 
 /**
- *
  * @author jhesker
  */
 public class Variable implements LambdaExpr {

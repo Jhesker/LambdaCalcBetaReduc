@@ -1,9 +1,9 @@
 package lambdaexpr;
 
 /**
- *Sets the Enum values for the types
- * @author jhesk
+ * @author jhesker
  */
+//Sets the Enum values for the types
 public enum ExprKind {
     ABSTRACTION,
     APPLICATION,

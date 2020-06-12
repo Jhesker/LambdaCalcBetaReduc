@@ -1,7 +1,6 @@
 package lambdaexpr;
 
 /**
- *
  * @author jhesker
  */
 public interface LambdaExpr {

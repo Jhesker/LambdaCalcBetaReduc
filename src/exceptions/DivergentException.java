@@ -1,7 +1,6 @@
 package exceptions;
 
 /**
- *
  * @author jhesker
  */
 public class DivergentException extends Exception{
