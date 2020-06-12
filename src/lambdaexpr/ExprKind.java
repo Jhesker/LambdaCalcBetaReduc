@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parser;
+package lambdaexpr;
 
 /**
- *
- * @author jhesker
+ *Sets the Enum values for the types
+ * @author jhesk
  */
-public class Parser {
-    
+public enum ExprKind {
+    ABSTRACTION,
+    APPLICATION,
+    VARIABLE;
 }

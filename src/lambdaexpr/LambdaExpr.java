@@ -7,8 +7,12 @@ package lambdaexpr;
 
 /**
  *
- * @author jhesk
+ * @author jhesker
  */
-public class LambdaExpr {
+public interface LambdaExpr {
+    
+    public LambdaExpr copy();
+    public LambdaExpr substitute(Variable var, LambdaExpr value);
+    public ExprKind type();
     
 }

@@ -7,7 +7,7 @@ package simulator;
 
 /**
  *
- * @author jhesk
+ * @author jhesker
  */
 public class Simulator {
     
