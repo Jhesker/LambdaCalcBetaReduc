@@ -8,9 +8,11 @@ public class Variable implements LambdaExpr {
     
     private char name;
     
+    //Constructor
     public Variable(char name) {
         this.name = name;
     }
+    
     //getter for name
     public char getName() {
         return name;
