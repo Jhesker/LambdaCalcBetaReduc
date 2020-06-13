@@ -17,8 +17,24 @@ public class Parser {
      * @throws ParseException 
      */
     private Abstraction parseAbstraction(String term) throws ParseException{
+        // instantiate Abstraction
+        Abstraction abs = new Abstraction();
         
-        return null; //TO CHANGE
+        // catching all Parse Errors:
+        if(term.charAt(0) != '(') 
+            throw new ParseException(abs.type(),term.charAt(0),'(');
+        if(term.charAt(1) != 'L') 
+            throw new ParseException(abs.type(),term.charAt(1),'L'); 
+        if(term.charAt(2) != '.') 
+            throw new ParseException(abs.type(),term.charAt(2),'.');
+        if(term.charAt(4) != ' ') 
+            throw new ParseException(abs.type(),term.charAt(4),' ');
+        
+        //setting the variables for Abstraction
+        abs.setBoundVar(parseVariable(term.substring(3, 4)));
+        abs.setBody(parse(term.substring(5, term.length() - 1)));
+        
+        return abs; //TO CHANGE
     }
     /**
      * 
@@ -36,7 +52,17 @@ public class Parser {
      * @throws ParseException 
      */
     private Variable parseVariable(String term)throws ParseException{
-        return null; // TO CHANGE
+        
+        //catching errors in the parsing of the variable
+        if(term.length() != 1) 
+            throw new ParseException("There are too many characters in the String " + term + " this is not a variable");
+        if(term.charAt(0) == '(' || term.charAt(0) == ')' || term.charAt(0) == '.' || term.charAt(0) == 'L')
+            throw new ParseException(term.charAt(0) + " is not a valid variable");
+        
+        //instantiating the new variable
+        Variable var = new Variable(term.charAt(0));
+        
+        return var;
     }
     /**
      * Takes in substring of original term starting with the char after the ( 
