@@ -11,9 +11,11 @@ public class Parser {
         
         System.out.println(term + "     is current term in parse()");  // testing 
         int endPos;
-        if(term.length() == 1) return expr = parseVariable(term); // if it is only one char it is a variable parse variable
+        
+        if(term.length() == 1)  return expr = parseVariable(term);// if it is only one char it is a variable parse variable
         
         if(term.charAt(0) == '('){  //if it starts with a '(' it can be any of the 3
+            
             endPos = findBalancedRightParenPos(term.substring(1));
             
             if(endPos == term.length() - 1){  // balanced right paren is end of statement can be either a var or abs
@@ -22,7 +24,9 @@ public class Parser {
                 else return  expr = parseVariable(term.substring(1, endPos)); // not abs then must be a variable
             }else return expr = parseApplication(term); //other two eliminated it must be application   
         }
-        return expr;
+        return expr = parseApplication(term);
+//        
+//        return expr;
     }
     /**
      * parsing of abstractions send the set bound variable to variable parser
@@ -66,17 +70,25 @@ public class Parser {
         int startPos = 0;
         int endPos = 0;
         
-        if(term.charAt(0) != '('){
+        if(term.charAt(0) != '(' && term.charAt(1) != ' '){
             throw new ParseException(app.type(), term.charAt(0), '(');
         }
-        //establish Operand 1
-        endPos = findBalancedRightParenPos(term.substring(startPos + 1));
-        app.setOperand1(parse(term.substring(startPos, endPos + 1)));
+        //handles all ( ) 
+        if(term.charAt(0) == '('){
+            //establish Operand 1
+            endPos = findBalancedRightParenPos(term.substring(startPos + 1));
+            
+            app.setOperand1(parse(term.substring(startPos, endPos + 1)));
         
-        //establish Operand 2
-        startPos = endPos + 1;
-        app.setOperand2(parse(term.substring(startPos, term.length())));
-
+            //establish Operand 2
+            startPos = endPos + 1;
+            app.setOperand2(parse(term.substring(startPos, term.length())));
+        }
+        //handles variables
+        if(term.charAt(1) == ' '){
+            app.setOperand1(parse(term.substring(0, 1)));
+            app.setOperand2(parse(term.substring(2, term.length())));
+        }
         return app;
     }
     /**
@@ -90,10 +102,10 @@ public class Parser {
         System.out.println(term + "     is current term in parse Variable");  // testing 
         
         //catching errors in the parsing of the variable
-        if(term.length() != 1) 
-            throw new ParseException("There are too many characters in the String " + term + " this is not a variable");
         if(term.charAt(0) == '(' || term.charAt(0) == ')' || term.charAt(0) == '.' || term.charAt(0) == 'L')
             throw new ParseException(term.charAt(0) + " is not a valid variable");
+            
+        if(term.length() != 1) parseVariable(term.substring(2, term.length()));
         
         //instantiating the new variable
         Variable var = new Variable(term.charAt(0));
@@ -115,12 +127,13 @@ public class Parser {
         
         for(int i = 0; i < term.length(); i++){
             currChar = term.charAt(i);
-            if(currChar == '(') parenToClose += 1;
-            if(currChar == ')' && parenToClose != 0 ) parenToClose -= 1;
             if(currChar == ')' && parenToClose == 0 ){
                 found = true; // used in test for debugging
                 return i + 1;
             }
+            if(currChar == '(') parenToClose += 1;
+            if(currChar == ')' && parenToClose != 0 ) parenToClose -= 1;
+            
         }
         if(found != true)
             throw new ParseException("ERROR: No matching paren for " + term);
