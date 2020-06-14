@@ -85,7 +85,7 @@ public class Application implements LambdaExpr{
      */
     @Override
     public String toString(){
-        return ""; // To Change
+        return operand1.toString() + operand2.toString();
     }
     
 }

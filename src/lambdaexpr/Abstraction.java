@@ -91,7 +91,7 @@ public class Abstraction implements LambdaExpr{
      */
     @Override
     public String toString(){
-        return ""; // To Change
+        return "(L" + boundVar.toString() + " " + body.toString() + ")";
     }
     
 }

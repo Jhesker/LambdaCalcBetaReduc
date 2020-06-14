@@ -63,7 +63,7 @@ public class Variable implements LambdaExpr {
     */
     @Override
     public String toString(){
-        return ""; // To Change
+        return Character.toString(name);
     }
     
 }
