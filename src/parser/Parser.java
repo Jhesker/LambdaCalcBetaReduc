@@ -6,9 +6,20 @@ import lambdaexpr.*;
  * @author jhesker
  */
 public class Parser {
-    public LambdaExpr parse(String term){
+    public LambdaExpr parse(String term) throws ParseException{
+        int endPos;
+        if(term.length() == 1) return parseVariable(term); // if it is only one char it is a variable parse variable
         
-        return null; // TO CHANGE
+        if(term.charAt(0) == '('){  //if it starts with a '(' it can be any of the 3
+            endPos = findBalancedRightParenPos(term.substring(1));
+            
+            if(endPos == term.length() - 1){  // balanced right paren is end of statement can be either a var or abs
+                // 2nd char is 'L' then this must be a abs
+                if(term.charAt(1) == 'L') return parseAbstraction(term);
+                else return parseVariable(term.substring(1, endPos)); // not abs then must be a variable
+            }else return parseApplication(term); //other two eliminated it must be application   
+        }
+        return null; //return here means the entered value was not a properly formatted Lambda Expr
     }
     /**
      * parsing of abstractions send the set bound variable to variable parser
@@ -48,8 +59,18 @@ public class Parser {
         
         //instantiate the Application
         Application app = new Application();
+        int startPos = 0;
+        int endPos = 0;
         
+        if(term.charAt(0) != '('){
+            throw new ParseException(app.type(), term.charAt(0), '(');
+        }
+        endPos = findBalancedRightParenPos(term.substring(startPos + 1));
+        app.setOperand1(parse(term.substring(startPos, endPos)));
         
+        startPos = endPos + 1;
+        app.setOperand2(parse(term.substring(startPos, term.length()-1)));
+
         return app;
     }
     /**
@@ -90,8 +111,8 @@ public class Parser {
             if(currChar == ')' && parenToClose != 0 ) parenToClose -= 1;
             if(currChar == ')' && parenToClose == 0 ){
                 found = true; // used in test for debugging
-                return i;
-            }  
+                return i + 1;
+            }
         }
         if(found != true)
             throw new ParseException("ERROR: No matching paren for " + term);

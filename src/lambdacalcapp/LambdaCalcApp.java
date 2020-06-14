@@ -1,5 +1,9 @@
 package lambdacalcapp;
 
+import exceptions.DivergentException;
+import exceptions.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import lambdaexpr.LambdaExpr;
 import parser.Parser;
@@ -18,9 +22,9 @@ public class LambdaCalcApp {
         Parser parser = new Parser();
         Simulator sim = new Simulator();
         
-        LambdaExpr expr; //Lambda value to be run through parser
+        LambdaExpr expr = null; //Lambda value to be run through parser
         boolean run = true;   //exit loop value
-        String term;  //Lambda expression entered by the user
+        String term = null;  //Lambda expression entered by the user
         int again;   // JOptionPane run again value on error
         
         //main loop
@@ -30,8 +34,16 @@ public class LambdaCalcApp {
             
             if(term != null){
                 
-                expr = parser.parse(term);
-                expr = sim.betaReduce(expr);
+                try {
+                    expr = parser.parse(term);
+                } catch (ParseException ex) {
+                    Logger.getLogger(LambdaCalcApp.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    expr = sim.betaReduce(expr);
+                } catch (DivergentException ex) {
+                    Logger.getLogger(LambdaCalcApp.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 //display output beta reduction
                 again = JOptionPane.showConfirmDialog(null,
