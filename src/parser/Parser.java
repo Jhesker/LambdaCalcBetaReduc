@@ -40,13 +40,13 @@ public class Parser {
             throw new ParseException(abs.type(),term.charAt(0),'(');
         if(term.charAt(1) != 'L') 
             throw new ParseException(abs.type(),term.charAt(1),'L'); 
-        if(term.charAt(2) != '.') 
-            throw new ParseException(abs.type(),term.charAt(2),'.');
+        if(term.charAt(3) != '.') 
+            throw new ParseException(abs.type(),term.charAt(3),'.');
         if(term.charAt(4) != ' ') 
             throw new ParseException(abs.type(),term.charAt(4),' ');
         
         //setting the variables for Abstraction
-        abs.setBoundVar(parseVariable(term.substring(3, 4)));
+        abs.setBoundVar(parseVariable(term.substring(2, 3)));
         abs.setBody(parse(term.substring(5, term.length() - 1)));
         
         return abs; //TO CHANGE
@@ -68,9 +68,11 @@ public class Parser {
         if(term.charAt(0) != '('){
             throw new ParseException(app.type(), term.charAt(0), '(');
         }
+        //establish Operand 1
         endPos = findBalancedRightParenPos(term.substring(startPos + 1));
         app.setOperand1(parse(term.substring(startPos, endPos + 1)));
         
+        //establish Operand 2
         startPos = endPos + 1;
         app.setOperand2(parse(term.substring(startPos, term.length())));
 
