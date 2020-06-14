@@ -7,8 +7,10 @@ import lambdaexpr.*;
  */
 public class Parser {
     public LambdaExpr parse(String term) throws ParseException{
+        LambdaExpr expr;
+        System.out.println(term + "     is current term in parse()");  // testing 
         int endPos;
-        if(term.length() == 1) return parseVariable(term); // if it is only one char it is a variable parse variable
+        if(term.length() == 1) return expr = parseVariable(term); // if it is only one char it is a variable parse variable
         
         if(term.charAt(0) == '('){  //if it starts with a '(' it can be any of the 3
             endPos = findBalancedRightParenPos(term.substring(1));
@@ -32,7 +34,7 @@ public class Parser {
     private Abstraction parseAbstraction(String term) throws ParseException{
         // instantiate Abstraction
         Abstraction abs = new Abstraction();
-        
+        System.out.println(term + "     is current term in parseAbstraction()");  // testing 
         // catching all Parse Errors:
         if(term.charAt(0) != '(') 
             throw new ParseException(abs.type(),term.charAt(0),'(');
@@ -59,6 +61,7 @@ public class Parser {
         
         //instantiate the Application
         Application app = new Application();
+        System.out.println(term + "     is current term in parseApplication");  // testing 
         int startPos = 0;
         int endPos = 0;
         
@@ -66,10 +69,10 @@ public class Parser {
             throw new ParseException(app.type(), term.charAt(0), '(');
         }
         endPos = findBalancedRightParenPos(term.substring(startPos + 1));
-        app.setOperand1(parse(term.substring(startPos, endPos)));
+        app.setOperand1(parse(term.substring(startPos, endPos + 1)));
         
         startPos = endPos + 1;
-        app.setOperand2(parse(term.substring(startPos, term.length()-1)));
+        app.setOperand2(parse(term.substring(startPos, term.length())));
 
         return app;
     }
@@ -80,6 +83,8 @@ public class Parser {
      * @throws ParseException 
      */
     private Variable parseVariable(String term)throws ParseException{
+        
+        System.out.println(term + "     is current term in parse Variable");  // testing 
         
         //catching errors in the parsing of the variable
         if(term.length() != 1) 

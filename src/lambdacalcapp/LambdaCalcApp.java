@@ -29,6 +29,16 @@ public class LambdaCalcApp {
         
         //main loop
         do{ 
+            JOptionPane.showMessageDialog(null, 
+                    "Valid Examples: "
+                    + "\n                (Lx. x z x)(y)"
+                    + "\n                (Ly. y)x "
+                    + "\n                (Lx. (Ly. y))z",
+                    "Lambda Syntax",
+                    JOptionPane.INFORMATION_MESSAGE);
+            
+            
+            
             term = JOptionPane.showInputDialog("Please enter the Lambda Expression\n "  //basic initial output
                     + "you would like submit for Beta Reduce.");
             
@@ -45,6 +55,10 @@ public class LambdaCalcApp {
                     Logger.getLogger(LambdaCalcApp.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                if(expr == null){
+                    JOptionPane.showMessageDialog(null, "It seems you entered and invalis Lambda Expression",
+                            "Entry Invalid:", JOptionPane.ERROR_MESSAGE);
+                }
                 //display output beta reduction
                 again = JOptionPane.showConfirmDialog(null,
                         expr +
