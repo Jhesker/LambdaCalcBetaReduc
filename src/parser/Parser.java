@@ -6,8 +6,9 @@ import lambdaexpr.*;
  * @author jhesker
  */
 public class Parser {
+    LambdaExpr expr = null;
     public LambdaExpr parse(String term) throws ParseException{
-        LambdaExpr expr;
+        
         System.out.println(term + "     is current term in parse()");  // testing 
         int endPos;
         if(term.length() == 1) return expr = parseVariable(term); // if it is only one char it is a variable parse variable
@@ -17,11 +18,11 @@ public class Parser {
             
             if(endPos == term.length() - 1){  // balanced right paren is end of statement can be either a var or abs
                 // 2nd char is 'L' then this must be a abs
-                if(term.charAt(1) == 'L') return parseAbstraction(term);
-                else return parseVariable(term.substring(1, endPos)); // not abs then must be a variable
-            }else return parseApplication(term); //other two eliminated it must be application   
+                if(term.charAt(1) == 'L') return expr = parseAbstraction(term);
+                else return  expr = parseVariable(term.substring(1, endPos)); // not abs then must be a variable
+            }else return expr = parseApplication(term); //other two eliminated it must be application   
         }
-        return null; //return here means the entered value was not a properly formatted Lambda Expr
+        return expr;
     }
     /**
      * parsing of abstractions send the set bound variable to variable parser
