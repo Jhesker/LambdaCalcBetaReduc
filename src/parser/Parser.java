@@ -11,7 +11,9 @@ public class Parser {
         return null; // TO CHANGE
     }
     /**
-     * 
+     * parsing of abstractions send the set bound variable to variable parser
+     * also sends the body of the abstraction to be further parsed in main 
+     * parser
      * @param term
      * @return
      * @throws ParseException 
@@ -39,16 +41,21 @@ public class Parser {
     /**
      * 
      * @param term
-     * @return
+     * @return Application
      * @throws ParseException 
      */
     private Application parseApplication(String term)throws ParseException{
-        return null; // TO CHANGE
+        
+        //instantiate the Application
+        Application app = new Application();
+        
+        
+        return app;
     }
     /**
-     * 
+     * This handles the parsing of variables 
      * @param term
-     * @return
+     * @return variable
      * @throws ParseException 
      */
     private Variable parseVariable(String term)throws ParseException{
@@ -84,11 +91,10 @@ public class Parser {
             if(currChar == ')' && parenToClose == 0 ){
                 found = true; // used in test for debugging
                 return i;
-            }
-            
+            }  
         }
-        
-        if(found != true) System.out.println("ERROR: No matching paren for " + term); // testing output
-        return 0; // TO CHANGE
+        if(found != true)
+            throw new ParseException("ERROR: No matching paren for " + term);
+        return 0;
     }
 }
