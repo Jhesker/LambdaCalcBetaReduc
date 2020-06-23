@@ -61,7 +61,7 @@ public class LambdaCalcApp {
                 }
                 //display output beta reduction
                 again = JOptionPane.showConfirmDialog(null,
-                        expr +
+                        expr.toString() +
                         "\nWould you like to run Another?",
                         "Beta Reduction:",
                         JOptionPane.YES_NO_OPTION);

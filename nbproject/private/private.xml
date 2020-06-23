@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/G:/Code/Java/LambdaCalcApp/src/lambdaexpr/Abstraction.java</file>
+            <file>file:/G:/Code/Java/LambdaCalcApp/src/simulator/Simulator.java</file>
+            <file>file:/G:/Code/Java/LambdaCalcApp/src/parser/Parser.java</file>
+            <file>file:/G:/Code/Java/LambdaCalcApp/src/lambdacalcapp/LambdaCalcApp.java</file>
+            <file>file:/G:/Code/Java/LambdaCalcApp/TestInput/input.txt</file>
+            <file>file:/G:/Code/Java/LambdaCalcApp/src/lambdaexpr/Application.java</file>
+        </group>
     </open-files>
 </project-private>

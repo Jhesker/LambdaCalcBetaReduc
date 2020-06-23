@@ -34,8 +34,7 @@ public class Variable implements LambdaExpr {
     public ExprKind type() {
        return ExprKind.VARIABLE;
     }
-    
-    
+      
     //Override Statements
     
     /**
@@ -45,7 +44,11 @@ public class Variable implements LambdaExpr {
     */
     @Override
     public boolean equals(Object obj){
-        return false; //To Change 
+        if(obj == null){
+            return false;
+        }
+        Variable objVar = (Variable) obj;
+        return objVar.getName() == name;
     }
     
     /**

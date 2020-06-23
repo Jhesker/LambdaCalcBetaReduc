@@ -1,5 +1,7 @@
 package lambdaexpr;
 
+
+
 /**
  * @author jhesker
  */
@@ -48,7 +50,22 @@ public class Application implements LambdaExpr{
      */
     @Override
     public LambdaExpr substitute(Variable var, LambdaExpr value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(operand1.equals(var)){
+            this.operand1 = value;
+        }
+        if(operand2.equals(var)){
+            this.operand2 = value;
+        }
+        //add handiling of the abstraction type.
+        if(operand2.type() == ExprKind.APPLICATION){
+            operand2.substitute(var, value);
+        }
+        
+        if(operand1.type() == ExprKind.ABSTRACTION){
+            Abstraction op1 = (Abstraction) operand1;
+            return op1.substitute(op1.getBoundVar(), operand2);
+        }
+        return this;
     }
 
     /**
@@ -85,7 +102,7 @@ public class Application implements LambdaExpr{
      */
     @Override
     public String toString(){
-        return operand1.toString() + operand2.toString();
+        return " " + operand1.toString() + " " + operand2.toString();
     }
     
 }

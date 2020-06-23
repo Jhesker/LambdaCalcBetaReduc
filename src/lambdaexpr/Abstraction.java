@@ -1,5 +1,10 @@
 package lambdaexpr;
 
+import exceptions.DivergentException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import simulator.Simulator;
+
 /**
  * @author jhesker
  */
@@ -43,7 +48,10 @@ public class Abstraction implements LambdaExpr{
     
     @Override
     public LambdaExpr copy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Abstraction abs = new Abstraction();
+        abs.setBody(body);
+        abs.setBoundVar(boundVar);
+        return abs;
     }
 
     /**
@@ -54,7 +62,29 @@ public class Abstraction implements LambdaExpr{
      */
     @Override
     public LambdaExpr substitute(Variable var, LambdaExpr value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(body.type() == ExprKind.VARIABLE){
+            if(body.equals(var)){
+                if(value.type() == ExprKind.APPLICATION){
+                   Simulator sim = new Simulator();
+                    try {
+                        return sim.betaReduce(value);
+                    } catch (DivergentException ex) {
+                        Logger.getLogger(Abstraction.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    return value;
+               
+                }
+                
+            }else return body;  
+        }
+        if(body.type() == ExprKind.APPLICATION){
+            return body.substitute(var, value);    
+        }
+        if(body.type() == ExprKind.ABSTRACTION){
+            return value;
+        }
+        return value;
     }
 
     /**
@@ -72,8 +102,9 @@ public class Abstraction implements LambdaExpr{
      * @return
      */
     @Override
-    public boolean equals(Object obj){
-        return false; //To Change 
+    public boolean equals(Object obj){  
+       Abstraction obj2 = (Abstraction) obj;
+        return obj2.body == body && obj2.boundVar == boundVar;
     }
     
     /**
@@ -84,14 +115,10 @@ public class Abstraction implements LambdaExpr{
     public int hashCode(){
         return 0; //To Change
     }
-    
-    /**
-     *
-     * @return
-     */
+
     @Override
     public String toString(){
-        return "(L" + boundVar.toString() + " " + body.toString() + ")";
+        return "(L" + boundVar.toString() + ". " + body.toString() + ")";
     }
     
 }
